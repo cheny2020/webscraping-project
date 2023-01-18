@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form,render_field, render_form_row %}
+{% from 'bootstrap5/table.html' import render_table %}
+{% block content %}
+{{ render_form(button_form, button_map={'submit': 'primary', 'cancel': 'secondary'}) }}
+    {% if is_result is defined %}
+          <h2>Result for <em>{{ keyword }}</em></h2>
+        <div>
+          <img src="data:image/png;base64,{{ img1 | safe }}">
+
+          <img src="data:image/png;base64,{{ img2 | safe }}">
+        </div>
+
+        <p>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#coleuro" aria-expanded="false" aria-controls="coleuro">
+            Results for europeana
+          </button>
+
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#colbnf" aria-expanded="false" aria-controls="colbnf">
+            Results for BNF
+          </button>
+        </p>
+
+        <div class="collapse" id="coleuro">
+        {#          "title", "provider", "type", "year" ,"link"])#}
+
+
+        <table>
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">title</th>
+                  <th scope="col">provider</th>
+                  <th scope="col">type</th>
+                  <th scope="col">year</th>
+                  <th scope="col">link</th>
+                </tr>
+              </thead>
+            <tbody>
+                {% for res in table_europea %}
+                    <tr>
+                        <th scope="row" >{{ res[0] }}</th>
+                        <td>{{ res[1] }}</td>
+                        <td>{{ res[2] }}</td>
+                        <td>{{ res[3] }}</td>
+                        <td>{{ res[4] }}</td>
+                        <td><a href="{{ res[5] }}">Link</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+
+        <div class="collapse" id="colbnf">
+        {#          "title", "provider", "type", "year" ,"link"])#}
+
+
+        <table>
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">title</th>
+                  <th scope="col">provider</th>
+                  <th scope="col">type</th>
+                  <th scope="col">year</th>
+                  <th scope="col">link</th>
+                </tr>
+              </thead>
+            <tbody>
+                {% for res in table_bnf %}
+                    <tr>
+                        <th scope="row" >{{ res[0] }}</th>
+                        <td>{{ res[1] }}</td>
+                        <td>{{ res[2] }}</td>
+                        <td>{{ res[3] }}</td>
+                        <td>{{ res[4] }}</td>
+                        <td><a href="{{ res[5] }}">Link</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}
